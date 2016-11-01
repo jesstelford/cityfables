@@ -1,0 +1,47 @@
+<!-- Josh's menu edited - added video-->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Menu Example</title>
+  <meta name="description" content="Menu - A-Frame">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <!--Script calls-->
+  <script src="../resources/js/aframe.min.js"></script>
+  <script src="../resources/js/argon.min.js"></script>
+  <script src="../build.js"></script>
+  <script src="../resources/js/CSS3DArgonRenderer.js"></script>
+  <script src="../resources/js/CSS3DArgonHUD.js"></script>
+  <script src="../resources/js/aframe-look-at-component.js"></script>
+  <script src="../resources/js/joshMenu.js"></script>
+</head>
+<body onload="start()">
+<a-scene stats id="scene">
+
+  <!--Sounds added by Josh Terry-->
+  <!--Video added by Surina Puri-->
+  <a-assets>
+    <video id="Malmo2" autoplay loop="true" src="Malmo2.mp4">
+      <audio id="Dreamer" src="../resources/audio/Dreamer.mp3">
+  </a-assets>
+  <!-- teo video boxes set up - one at position (0,6,0) and one at (0,-5,0)-->
+  <a-video src="#Malmo2" width="4" height="3" position="0 6 0"></a-video>
+  <a-video src="#Malmo2" width="4" height="3" position="0 -5 0"></a-video>
+
+  <a-entity sound="src: #Dreamer"></a-entity>
+
+  <!--Cursor object, ring shape, a grayish color, can click objects far away with raycaster, located 0.75 away from camera-->
+  <a-entity position="0 .6 4">
+    <a-camera>
+      <a-entity cursor
+                geometry="primitive: ring; radiusOuter: 0.015;
+                              radiusInner: 0.01; segmentsTheta: 32"
+                material="color: #283644; shader: flat"
+                raycaster="far: 30"
+                position="0 0 -0.75"
+                sound="src: url(../resources/audio/Dreamer.mp3); autoplay: true"></a-entity>
+    </a-camera>
+  </a-entity>
+</a-scene>
+</body>
+</html>
