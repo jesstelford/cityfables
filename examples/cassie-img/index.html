@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Image Example</title>
+    <meta name="description" content="Image - A-Frame">
+    <!--Script calls-->
+    <script src="../resources/js/aframe.js"></script>
+    <script src="../resources/js/argon.min.js"></script>
+  </head>
+  <body onload="setup()">
+    <!--a-scene = a-frame scene, need to incorporate ar-scene-->
+    <a-scene id="scene">
+      <!--Preloaded images, materials, etc-->
+      <a-assets>
+        <img id="buildingImage" src="building.jpg">
+      </a-assets>
+      <!--Full-Screen image, placed on top of the camera object to stay in same place on screen,
+          plane geometry, building image, located 1 away from user location-->
+      <a-entity position="0 0 0">
+        <a-camera id="camera">
+        <a-entity cursor
+                    geometry="primitive: ring; radiusOuter: 0.025;
+                              radiusInner: 0.015; segmentsTheta: 32"
+                    material="color: #283644; shader: flat"
+                    raycaster="far: 30"
+                    position="0 0 -1"></a-entity>
+        </a-camera>
+      </a-entity> 
+      <a-entity id="smallPic" geometry="primitive: plane; height: 1; width: 1" material="src: #buildingImage; opacity: 0.25" position="0 0 -5"></a-entity>
+    </a-scene>
+    <script>
+      function setup() {
+        var smallPic = document.getElementById("smallPic");
+        smallPic.addEventListener("click", createFullScreen);
+        start();
+      }
+
+      function createFullScreen() {
+        var element = document.getElementById("camera");
+
+        var fullPic = document.createElement("a-entity");
+
+        var id = document.createAttribute("id");
+        var geometry = document.createAttribute("geometry");
+        var material = document.createAttribute("material");
+        var position = document.createAttribute("position");
+
+        id.value = "fullPic";
+        geometry.value = "primitive: plane";
+        material.value = "src: #buildingImage";
+        position.value = "0 0 -1";
+
+        fullPic.setAttributeNode(id);
+        fullPic.setAttributeNode(geometry);
+        fullPic.setAttributeNode(material);
+        fullPic.setAttributeNode(position);
+
+        element.appendChild(fullPic);
+
+        var element = document.getElementById("scene");
+        var smallPic = document.getElementById("smallPic");
+        element.removeChild(smallPic);
+
+        var exitFullScreen = document.createElement("a-entity");
+
+        var geometry = document.createAttribute("geometry");
+        var material = document.createAttribute("material");
+        var position = document.createAttribute("position");
+        var id = document.createAttribute("id");
+        var rotation = document.createAttribute("rotation");
+
+        geometry.value = "primitive: circle; radius: 5";
+        rotation.value = "90 0 0";
+        material.value = "opacity: 0; color: #6B6B6B";
+        position.value = "0 5 0";
+        id.value = "exitIcon";
+
+        exitFullScreen.setAttributeNode(geometry);
+        exitFullScreen.setAttributeNode(rotation);
+        exitFullScreen.setAttributeNode(material);
+        exitFullScreen.setAttributeNode(position);
+        exitFullScreen.setAttributeNode(id);
+
+        element.appendChild(exitFullScreen);
+
+        var exitElem = document.getElementById("exitIcon");
+        exitElem.addEventListener("click", exitFullScreenMode);
+      }
+
+      function exitFullScreenMode() {
+        var element = document.getElementById("scene");
+
+        var smallPic = document.createElement("a-entity");
+
+        var id = document.createAttribute("id");
+        var geometry = document.createAttribute("geometry");
+        var material = document.createAttribute("material");
+        var position = document.createAttribute("position");
+
+        id.value = "smallPic";
+        geometry.value = "primitive: plane; height: 1; width: 1";
+        material.value = "src: #buildingImage; opacity: 0.25";
+        position.value = "0 0 -5";
+
+        smallPic.setAttributeNode(id);
+        smallPic.setAttributeNode(geometry);
+        smallPic.setAttributeNode(material);
+        smallPic.setAttributeNode(position);
+
+        element.appendChild(smallPic);
+
+        var exitElem = document.getElementById("exitIcon");
+        element.removeChild(exitElem);
+
+        var element = document.getElementById("camera");
+        var smallPic = document.getElementById("fullPic");
+        element.removeChild(fullPic);
+
+        var smallPic = document.getElementById("smallPic");
+        smallPic.addEventListener("click", createFullScreen);
+      }
+    </script>
+  </body>
+</html>

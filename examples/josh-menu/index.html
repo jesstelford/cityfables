@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Menu Example</title>
+    <meta name="description" content="Menu - A-Frame">
+    <!--Script calls-->
+    <script src="../resources/js/aframe.min.js"></script>
+    <script src="../resources/js/argon.min.js"></script>
+    <script src="../build.js"></script>
+    <script src="../resources/js/CSS3DArgonRenderer.js"></script>
+    <script src="../resources/js/CSS3DArgonHUD.js"></script>
+    <script src="../resources/js/aframe-look-at-component.js"></script>
+    <script src="../resources/js/joshMenu.js"></script>
+  </head>
+  <body onload="start()">
+    <a-scene stats id="scene">
+
+      <!--I added some sound in here as a test. Josh Terry-->
+      <a-assets>
+        <audio id="Dreamer" src="../resources/audio/Dreamer.mp3">
+      </a-assets>
+
+      <a-entity sound="src: #Dreamer"></a-entity>
+      <!--Cursor object, ring shape, a grayish color, can click objects far away with raycaster, located 0.75 away from camera-->
+      <a-entity position="0 .6 4">
+        <a-camera>
+          <a-entity cursor
+                    geometry="primitive: ring; radiusOuter: 0.015;
+                              radiusInner: 0.01; segmentsTheta: 32"
+                    material="color: #BEEEEF; shader: flat"
+                    raycaster="far: 30"
+                    position="0 0 -0.75"
+                    sound="src: url(../resources/audio/Dreamer.mp3); autoplay: true"></a-entity>
+        </a-camera>
+      </a-entity>
+    </a-scene>
+  </body>
+</html>
